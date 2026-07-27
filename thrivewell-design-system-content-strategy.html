@@ -1,0 +1,815 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Thrivewell Care Design System and Content Strategy</title>
+  <style>
+    :root {
+      --bg: #f3f5ee;
+      --surface: #f6f4f1;
+      --surface-strong: #dedcd6;
+      --ink: #1c2623;
+      --ink-soft: color-mix(in srgb, #1c2623 72%, #f3f5ee);
+      --ink-faint: color-mix(in srgb, #1c2623 52%, #f3f5ee);
+      --paper: #eceae1;
+      --white: #ffffff;
+      --black: #000000;
+      --line: color-mix(in srgb, #1c2623 14%, #dedcd6);
+      --focus: #315c4e;
+      --font: "BDO Grotesk", Arial, sans-serif;
+      --radius-md: 16px;
+      --radius-xl: 24px;
+      --shadow-1: rgb(0, 0, 0) 0 -1px 0 0 inset, rgba(246, 244, 242, 0.16) 0 1px 0 0 inset;
+      --shadow-2: rgba(0, 0, 0, 0.09) 0 4px 9px 0;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      color: var(--ink);
+      background: var(--bg);
+      font-family: var(--font);
+      line-height: 1.5;
+    }
+
+    body {
+      margin: 0;
+      background:
+        linear-gradient(90deg, rgba(28, 38, 35, 0.07) 1px, transparent 1px) 0 0 / 120px 120px,
+        linear-gradient(180deg, rgba(246, 244, 241, 0.7), transparent 420px),
+        var(--bg);
+    }
+
+    a {
+      color: inherit;
+      text-underline-offset: 0.2em;
+    }
+
+    .page {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 32px 24px 120px;
+    }
+
+    .masthead {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      min-height: 64px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 18px;
+    }
+
+    .mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--ink);
+      color: var(--surface);
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 16px;
+      color: var(--ink-soft);
+      font-size: 14px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 0.52fr);
+      gap: 60px;
+      align-items: end;
+      padding: 120px 0 60px;
+    }
+
+    .eyebrow {
+      margin: 0 0 20px;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+
+    h1, h2, h3 {
+      margin-top: 0;
+      font-weight: 400;
+      color: var(--ink);
+      text-wrap: pretty;
+    }
+
+    h1 {
+      max-width: 11ch;
+      margin-bottom: 24px;
+      font-size: clamp(52px, 7vw, 68px);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+
+    h2 {
+      font-size: clamp(40px, 5vw, 56px);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+    }
+
+    h3 {
+      font-size: 28px;
+      line-height: 1.18;
+      letter-spacing: -0.01em;
+      margin-bottom: 16px;
+    }
+
+    .deck {
+      max-width: 40ch;
+      font-size: clamp(20px, 2vw, 28px);
+      line-height: 1.35;
+      color: var(--ink-soft);
+      margin-bottom: 0;
+    }
+
+    .summary-card,
+    .panel,
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+    }
+
+    .summary-card {
+      padding: 24px;
+      box-shadow: var(--shadow-2);
+    }
+
+    .summary-card p,
+    .section-intro p,
+    .card p,
+    .card li,
+    td {
+      color: var(--ink-soft);
+    }
+
+    .meta-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+      margin-bottom: 60px;
+    }
+
+    .metric {
+      min-height: 132px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      box-shadow: var(--shadow-1);
+    }
+
+    .metric span {
+      display: block;
+      color: var(--ink-faint);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 28px;
+      line-height: 1.15;
+      font-weight: 400;
+    }
+
+    .section {
+      padding: 60px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-intro {
+      display: grid;
+      grid-template-columns: minmax(220px, 0.34fr) minmax(0, 1fr);
+      gap: 60px;
+      margin-bottom: 32px;
+    }
+
+    .section-intro p {
+      max-width: 64ch;
+      font-size: 18px;
+      margin-bottom: 0;
+    }
+
+    .panel {
+      padding: 32px;
+    }
+
+    .dark-panel {
+      background: var(--ink);
+      color: var(--surface);
+      border-color: var(--ink);
+    }
+
+    .dark-panel h2,
+    .dark-panel h3,
+    .dark-panel strong {
+      color: var(--surface);
+    }
+
+    .dark-panel p,
+    .dark-panel li {
+      color: var(--paper);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    .card {
+      border-radius: var(--radius-md);
+      padding: 20px;
+      min-height: 160px;
+    }
+
+    .card h3 {
+      font-size: 24px;
+      margin-bottom: 12px;
+    }
+
+    .label {
+      display: inline-flex;
+      min-height: 28px;
+      align-items: center;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: var(--surface-strong);
+      color: var(--ink);
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .swatches {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .swatch {
+      min-height: 150px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--line);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .swatch strong {
+      font-size: 14px;
+      font-weight: 400;
+      margin-bottom: 5px;
+    }
+
+    .swatch code {
+      font-family: var(--font);
+      font-size: 12px;
+      opacity: 0.76;
+    }
+
+    .ink-swatch { background: var(--ink); color: var(--surface); }
+    .raised-swatch { background: var(--bg); }
+    .surface-swatch { background: var(--surface); }
+    .strong-swatch { background: var(--surface-strong); }
+    .paper-swatch { background: var(--paper); }
+    .black-swatch { background: var(--black); color: var(--white); }
+
+    .type-row {
+      display: grid;
+      grid-template-columns: 92px minmax(0, 1fr) 100px;
+      gap: 16px;
+      align-items: baseline;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .type-row span,
+    .type-row code {
+      color: var(--ink-faint);
+      font-size: 13px;
+    }
+
+    .t-68 { font-size: 68px; line-height: 1.05; letter-spacing: -0.02em; }
+    .t-56 { font-size: 56px; line-height: 1.08; letter-spacing: -0.02em; }
+    .t-40 { font-size: 40px; line-height: 1.15; }
+    .t-28 { font-size: 28px; }
+    .t-16 { font-size: 16px; }
+    .t-14 { font-size: 14px; }
+    .t-12 { font-size: 12px; letter-spacing: 0.02em; }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: var(--surface);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      min-width: 760px;
+    }
+
+    th, td {
+      padding: 16px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      font-weight: 400;
+      background: var(--bg);
+      color: var(--ink);
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .btn {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-md);
+      padding: 12px 20px;
+      border: 1px solid var(--ink);
+      font: inherit;
+      text-decoration: none;
+    }
+
+    .btn.primary { background: var(--ink); color: var(--surface); }
+    .btn.secondary { background: var(--surface-strong); color: var(--ink); border-color: var(--surface-strong); }
+    .btn.ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+
+    .template {
+      display: grid;
+      grid-template-columns: 0.82fr 1fr;
+      gap: 16px;
+    }
+
+    .template-aside {
+      background: var(--ink);
+      color: var(--surface);
+      border-radius: 20px;
+      padding: 24px;
+    }
+
+    .template-aside p { color: var(--paper); }
+
+    .code-block {
+      background: var(--black);
+      color: var(--paper);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      overflow-x: auto;
+      font-family: var(--font);
+      font-size: 13px;
+      line-height: 1.6;
+      white-space: pre;
+    }
+
+    .qa-list {
+      columns: 2;
+      column-gap: 32px;
+      padding-left: 20px;
+      color: var(--ink-soft);
+    }
+
+    .qa-list li {
+      break-inside: avoid;
+      margin-bottom: 12px;
+    }
+
+    @media (max-width: 980px) {
+      .hero,
+      .section-intro,
+      .template {
+        grid-template-columns: 1fr;
+      }
+
+      .meta-row,
+      .grid,
+      .grid.two,
+      .grid.four,
+      .swatches {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page { padding: 20px 16px 60px; }
+      .masthead { align-items: flex-start; flex-direction: column; }
+      .nav { justify-content: flex-start; }
+      .hero { padding: 60px 0; gap: 24px; }
+      h1 { font-size: 52px; }
+      h2 { font-size: 40px; }
+      .meta-row,
+      .grid,
+      .grid.two,
+      .grid.four,
+      .swatches {
+        grid-template-columns: 1fr;
+      }
+      .type-row { grid-template-columns: 1fr; gap: 5px; }
+      .t-68 { font-size: 46px; }
+      .t-56 { font-size: 40px; }
+      .qa-list { columns: 1; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="masthead">
+      <div class="brand">
+        <div class="mark">TW</div>
+        <div>Thrivewell Care</div>
+      </div>
+      <nav class="nav" aria-label="Document navigation">
+        <a href="#foundations">Foundations</a>
+        <a href="#components">Components</a>
+        <a href="#content">Content</a>
+        <a href="#seo">SEO</a>
+        <a href="#qa">QA</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Design system and content strategy</p>
+        <h1 data-od-id="headline">Thrivewell's website operating system.</h1>
+        <p class="deck">A practical brand, interface and content system for a regulated home-care provider serving families across West Lothian, Edinburgh and East Lothian.</p>
+      </div>
+      <aside class="summary-card">
+        <p><strong>Audience:</strong> adult children choosing care for a parent, plus older adults, family carers and referral partners.</p>
+        <p><strong>Conversion goal:</strong> request a free care assessment, call for advice or complete a care-needs check.</p>
+        <p><strong>Strategic rule:</strong> every page must reduce anxiety, prove trust and make the next step obvious.</p>
+      </aside>
+    </section>
+
+    <section class="meta-row" aria-label="System summary">
+      <div class="metric"><span>Indexed structure</span><strong>31 core pages</strong></div>
+      <div class="metric"><span>Service depth</span><strong>8 care services</strong></div>
+      <div class="metric"><span>Local SEO</span><strong>6 location pages</strong></div>
+      <div class="metric"><span>Compliance</span><strong>5 policy pages</strong></div>
+    </section>
+
+    <section class="section" id="foundations" data-od-id="foundations">
+      <div class="section-intro">
+        <div>
+          <p class="eyebrow">01 Foundations</p>
+          <h2>Brand posture</h2>
+        </div>
+        <p>Thrivewell should feel calm, regulated and easy to act on. The design language uses the approved clean functional system: BDO Grotesk, green-black text, warm raised surfaces, generous spacing jumps and rounded components. The healthcare adaptation is softer in content, but strict in interaction and accessibility.</p>
+      </div>
+
+      <div class="grid">
+        <div class="card"><span class="label">Promise</span><h3>Live well at home</h3><p>Support older adults to remain safe, independent and treated with dignity in familiar surroundings.</p></div>
+        <div class="card"><span class="label">Proof</span><h3>Regulated and nurse-led</h3><p>Care Inspectorate registration, nurse-led management, PVG checks, SSSC registration and 24/7 on-call support.</p></div>
+        <div class="card"><span class="label">Tone</span><h3>Warm, direct, practical</h3><p>Speak plainly to families under pressure. Avoid sentimental copy, fear-based selling and invented outcomes.</p></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-intro">
+        <div>
+          <p class="eyebrow">Tokens</p>
+          <h2>Color system</h2>
+        </div>
+        <p>Use semantic tokens in implementation. Raw hex values are documented here for handoff, but components should reference role names so the system remains consistent when pages scale.</p>
+      </div>
+
+      <div class="swatches" aria-label="Color tokens">
+        <div class="swatch ink-swatch"><strong>text-primary</strong><code>#1c2623</code></div>
+        <div class="swatch raised-swatch"><strong>surface-raised</strong><code>#f3f5ee</code></div>
+        <div class="swatch surface-swatch"><strong>surface-card</strong><code>#f6f4f1</code></div>
+        <div class="swatch strong-swatch"><strong>surface-strong</strong><code>#dedcd6</code></div>
+        <div class="swatch paper-swatch"><strong>text-secondary</strong><code>#eceae1</code></div>
+        <div class="swatch black-swatch"><strong>surface-base</strong><code>#000000</code></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-intro">
+        <div>
+          <p class="eyebrow">Typography</p>
+          <h2>BDO Grotesk scale</h2>
+        </div>
+        <p>The system uses one family with disciplined spacing and layout for hierarchy. Large type should be regular weight, tightly spaced, and surrounded by enough room to feel deliberate. Body copy should stay readable at 60-75 characters per line.</p>
+      </div>
+
+      <div class="panel">
+        <div class="type-row"><span>3XL</span><div class="t-68">Care that keeps home familiar.</div><code>68 / 1.05</code></div>
+        <div class="type-row"><span>2XL</span><div class="t-56">Nurse-led home care</div><code>56 / 1.08</code></div>
+        <div class="type-row"><span>XL</span><div class="t-40">Service page heading</div><code>40 / 1.15</code></div>
+        <div class="type-row"><span>LG</span><div class="t-28">Intro or card title</div><code>28 / 1.25</code></div>
+        <div class="type-row"><span>MD</span><div class="t-16">Body copy for care explanations, page introductions and FAQ answers.</div><code>16 / 1.5</code></div>
+        <div class="type-row"><span>SM</span><div class="t-14">Labels, navigation, metadata and captions.</div><code>14 / 1.5</code></div>
+        <div class="type-row"><span>XS</span><div class="t-12">TRUST LABEL</div><code>12 / 1.5</code></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-intro">
+        <div>
+          <p class="eyebrow">Layout</p>
+          <h2>Spacing and structure</h2>
+        </div>
+        <p>Use the extracted scale without one-off spacing. Major page rhythm should rely on 60, 120, 160 and 200px. Cards and controls should use 12, 16, 20, 24 and 32px. This gives the brand a calm editorial pace without decorative excess.</p>
+      </div>
+
+      <div class="grid two">
+        <div class="panel"><h3>Spacing tokens</h3><p>1, 4, 5, 6, 8, 9, 12, 16, 20, 24, 32, 60, 120, 160, 200px.</p><p>Use 120px+ only for page-level rhythm, not component internals.</p></div>
+        <div class="panel"><h3>Radius tokens</h3><p>8px for small controls, 12px for compact inputs, 16px for buttons and cards, 20px for panels, 24px for major sections.</p><p>Do not mix multiple radii inside the same component.</p></div>
+      </div>
+    </section>
+
+    <section class="section dark-panel panel" id="components" data-od-id="components">
+      <div class="section-intro">
+        <div>
+          <p class="eyebrow">02 Components</p>
+          <h2>Interface rules</h2>
+        </div>
+        <p>Components must be functional, accessible and state-complete. Thrivewell's audience includes stressed family members and older adults, so clarity beats novelty. Every interaction should be obvious, forgiving and large enough to use on mobile.</p>
+      </div>
+
+      <div class="button-row" aria-label="Button examples">
+        <a class="btn primary" href="#">Arrange a free assessment</a>
+        <a class="btn secondary" href="#">Call for advice</a>
+        <a class="btn ghost" href="#">View care services</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Component</th><th>Anatomy</th><th>States that must exist</th><th>Accessibility rule</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Primary button</td><td>Label, optional icon, 44px minimum height, 16px radius, text-primary background.</td><td>Default, hover, focus-visible, active, disabled, loading, success and error.</td><td>Visible focus ring, descriptive label and no icon-only primary actions.</td></tr>
+            <tr><td>Secondary button</td><td>Surface-strong background, text-primary label, same height and radius as primary.</td><td>Default, hover, focus-visible, active, disabled and loading.</td><td>Must not look more visually important than the primary CTA.</td></tr>
+            <tr><td>Service card</td><td>Service name, short situation-led description, 2-3 inclusions, text link.</td><td>Default, hover, focus-visible and long-title wrapping.</td><td>Entire card may be clickable only if nested controls are avoided.</td></tr>
+            <tr><td>Trust proof panel</td><td>Claim, source, supporting line and optional link to proof page.</td><td>Static, linked, expanded detail and empty-evidence state.</td><td>Do not make compliance claims without a linked or named source.</td></tr>
+            <tr><td>Lead form</td><td>Name, phone, email, postcode, care need, urgency, message and consent.</td><td>Default, focus, validation error, disabled, submitting and success.</td><td>Labels must remain visible. Errors must explain the fix in text.</td></tr>
+            <tr><td>FAQ accordion</td><td>Question button, answer region, optional page link.</td><td>Collapsed, expanded, focus-visible and keyboard toggled.</td><td>Use button semantics and preserve heading order.</td></tr>
+            <tr><td>Location teaser</td><td>Town name, local intro, nearby areas, services link and assessment CTA.</td><td>Default, hover, focus-visible and missing-testimonial state.</td><td>Do not duplicate the same text with only town names changed.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section" id="content" data-od-id="content-strategy">
+      <div class="section-intro">
+        <div>
+          <p class="eyebrow">03 Content strategy</p>
+          <h2>Messaging system</h2>
+        </div>
+        <p>Content should guide a worried family from concern to action. The site should avoid broad claims like "best care" and instead explain what happens, who delivers care, how safety is monitored and how families can start.</p>
+      </div>
+
+      <div class="grid">
+        <div class="card"><span class="label">Pillar 1</span><h3>Safety</h3><p>Regulated care, trained carers, PVG checks, SSSC registration, medication records and 24/7 on-call support.</p></div>
+        <div class="card"><span class="label">Pillar 2</span><h3>Dignity</h3><p>Personal routines, privacy, choice, independence, respectful personal care and continuity where possible.</p></div>
+        <div class="card"><span class="label">Pillar 3</span><h3>Local trust</h3><p>West Lothian, Livingston, Bathgate, Linlithgow, Edinburgh and East Lothian pages with unique local proof.</p></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="template">
+        <aside class="template-aside">
+          <p class="eyebrow">Core copy</p>
+          <h2>Approved direction</h2>
+          <p>Use this language as the starting point for the homepage and paid-search landing pages.</p>
+        </aside>
+        <div class="panel">
+          <h3>Homepage hero</h3>
+          <p><strong>Headline:</strong> Nurse-led home care that helps your parent stay safe, independent and well at home.</p>
+          <p><strong>Subhead:</strong> Thrivewell Care provides regulated care at home across West Lothian, Edinburgh and East Lothian, with support for daily routines, medication, companionship, nights, respite and more complex needs.</p>
+          <p><strong>Primary CTA:</strong> Arrange a free care assessment. <strong>Secondary CTA:</strong> Call for advice today.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-intro">
+        <div>
+          <p class="eyebrow">Voice rules</p>
+          <h2>How Thrivewell should sound</h2>
+        </div>
+        <p>The writing should be plain, reassuring and action-oriented. It should acknowledge family pressure without dramatizing it. Sentences should be short enough to scan, with practical nouns and specific next steps.</p>
+      </div>
+
+      <div class="grid two">
+        <div class="card">
+          <h3>Use</h3>
+          <ul>
+            <li>"Arrange a free care assessment"</li>
+            <li>"Support with washing, dressing and getting ready for the day"</li>
+            <li>"A care plan reviewed as needs change"</li>
+            <li>"Care at home in Livingston and nearby areas"</li>
+            <li>"Call us if you are unsure what level of care is needed"</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Avoid</h3>
+          <ul>
+            <li>"World-class elderly care"</li>
+            <li>"The best carers in Scotland"</li>
+            <li>"Affordable care for everyone"</li>
+            <li>"Let us transform your life"</li>
+            <li>"High-quality services tailored to your needs" without specifics</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="seo" data-od-id="seo-architecture">
+      <div class="section-intro">
+        <div>
+          <p class="eyebrow">04 SEO architecture</p>
+          <h2>Page map</h2>
+        </div>
+        <p>The website should be built as a local service platform. Core pages explain the business. Service pages target care-intent searches. Location pages target high-converting local searches. Trust pages remove objections before contact.</p>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Group</th><th>URLs</th><th>Search intent</th><th>Content requirement</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Core</td><td>/, /about, /services, /why-choose-us, /contact, /cost-estimator, /careers, /blog</td><td>Brand, evaluation, contact and recruitment.</td><td>Clear service offer, trust proof, leadership, contact options and care checker.</td></tr>
+            <tr><td>Services</td><td>/services/personal-care, /services/medication-support, /services/companionship-care, /services/live-in-care, /services/respite-care, /services/night-care, /services/dementia-care, /services/post-hospital-care</td><td>Families searching by care need.</td><td>Situation-led opening, included tasks, who it helps, delivery process, FAQs and local CTA.</td></tr>
+            <tr><td>Locations</td><td>/locations/west-lothian, /locations/livingston, /locations/bathgate, /locations/linlithgow, /locations/edinburgh, /locations/east-lothian</td><td>High-intent local care searches.</td><td>Unique local introduction, nearby areas, local service mix, local FAQs and assessment CTA.</td></tr>
+            <tr><td>Trust</td><td>/care-assessment, /funding-guide, /faqs, /testimonials, /care-inspectorate</td><td>Objection handling and confidence building.</td><td>Process clarity, funding explanation, proof, regulation and family reassurance.</td></tr>
+            <tr><td>Legal</td><td>/privacy-policy, /cookie-policy, /accessibility-statement, /complaints-procedure, /safeguarding-policy</td><td>Compliance and footer utility.</td><td>Plain policy content, contact route and last-reviewed date.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-intro">
+        <div>
+          <p class="eyebrow">Templates</p>
+          <h2>Page blueprints</h2>
+        </div>
+        <p>Use these structures to keep pages consistent while avoiding duplicate content. Each page type has a different job and should not be forced into the same layout.</p>
+      </div>
+
+      <div class="grid">
+        <div class="card"><h3>Service page</h3><ol><li>Problem-aware hero</li><li>What this care includes</li><li>Who it helps</li><li>How Thrivewell delivers care</li><li>Safety and regulation proof</li><li>FAQs</li><li>Assessment CTA</li></ol></div>
+        <div class="card"><h3>Location page</h3><ol><li>Town-specific hero</li><li>Nearby areas served</li><li>Most relevant services</li><li>Local family scenarios</li><li>Trust proof</li><li>Local FAQs</li><li>Call or assessment CTA</li></ol></div>
+        <div class="card"><h3>Trust page</h3><ol><li>Plain-language promise</li><li>What families need to know</li><li>Evidence and process</li><li>Common questions</li><li>Internal links to services</li><li>Contact next step</li></ol></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-intro">
+        <div>
+          <p class="eyebrow">Service strategy</p>
+          <h2>Eight landing pages</h2>
+        </div>
+        <p>Each service page should own one search intent and one family situation. The pages can share structure, but the copy must be specific to the care need.</p>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Page</th><th>Primary angle</th><th>Lead CTA</th></tr></thead>
+          <tbody>
+            <tr><td>/services/personal-care</td><td>Discreet help with washing, dressing, toileting and daily routines.</td><td>Arrange personal care support</td></tr>
+            <tr><td>/services/medication-support</td><td>Medication prompting, support and recorded routines for safer days at home.</td><td>Ask about medication support</td></tr>
+            <tr><td>/services/companionship-care</td><td>Conversation, outings, appointments and social reassurance for older adults.</td><td>Plan companionship visits</td></tr>
+            <tr><td>/services/live-in-care</td><td>Round-the-clock care at home as an alternative to residential care.</td><td>Discuss live-in care</td></tr>
+            <tr><td>/services/respite-care</td><td>Planned cover for family carers who need rest, work time or a break.</td><td>Book respite care advice</td></tr>
+            <tr><td>/services/night-care</td><td>Sleeping or waking night care for overnight reassurance and active support.</td><td>Ask about night care</td></tr>
+            <tr><td>/services/dementia-care</td><td>Routine-led care for memory loss, confusion, safety prompts and family peace of mind.</td><td>Talk about dementia care</td></tr>
+            <tr><td>/services/post-hospital-care</td><td>Settling-in support after discharge, illness, surgery or a fall.</td><td>Plan post-hospital support</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-intro">
+        <div>
+          <p class="eyebrow">Editorial SEO</p>
+          <h2>Blog clusters</h2>
+        </div>
+        <p>The blog should support commercial pages, not compete with them. Each guide should answer a family question and link naturally to a service, location or trust page.</p>
+      </div>
+
+      <div class="grid four">
+        <div class="card"><h3>Funding</h3><p>SDS, Direct Payments, Attendance Allowance, council assessments and private care planning.</p></div>
+        <div class="card"><h3>Transitions</h3><p>Hospital discharge, falls, first care visit, urgent care and changing needs.</p></div>
+        <div class="card"><h3>Dementia</h3><p>Early signs, routines, home safety, carer respite and conversation guidance.</p></div>
+        <div class="card"><h3>Family decisions</h3><p>Choosing a provider, questions to ask, live-in versus residential care and night support.</p></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="panel">
+        <div class="section-intro">
+          <div>
+            <p class="eyebrow">Implementation tokens</p>
+            <h2>CSS starter</h2>
+          </div>
+          <p>This block gives developers the first pass of semantic tokens. Component code should reference these variables rather than repeating hex values in local CSS.</p>
+        </div>
+        <div class="code-block">:root {
+  --color-text-primary: #1c2623;
+  --color-text-secondary: #eceae1;
+  --color-text-tertiary: #ffffff;
+  --color-text-inverse: #f6f4f1;
+  --color-surface-base: #000000;
+  --color-surface-raised: #f3f5ee;
+  --color-surface-card: #f6f4f1;
+  --color-surface-strong: #dedcd6;
+  --font-family-primary: "BDO Grotesk", Arial, sans-serif;
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 20px;
+  --radius-xl: 24px;
+  --shadow-raised: rgba(0, 0, 0, 0.09) 0 4px 9px;
+}</div>
+      </div>
+    </section>
+
+    <section class="section" id="qa" data-od-id="qa-checklist">
+      <div class="section-intro">
+        <div>
+          <p class="eyebrow">05 QA</p>
+          <h2>Acceptance checklist</h2>
+        </div>
+        <p>Use this before any page is approved. These are pass/fail checks, not suggestions.</p>
+      </div>
+
+      <div class="panel">
+        <ul class="qa-list">
+          <li>Every page must have one clear primary CTA above the fold.</li>
+          <li>Every service page must mention what the care includes and who it helps.</li>
+          <li>Every location page must include unique local copy, not duplicated town swaps.</li>
+          <li>Every component must define hover, focus-visible, active, disabled, loading and error where relevant.</li>
+          <li>All interactive targets must be at least 44 by 44px.</li>
+          <li>Normal text must meet WCAG 2.2 AA contrast requirements.</li>
+          <li>Forms must keep visible labels and text-based error messages.</li>
+          <li>Compliance claims must be specific and should link to a proof or trust page.</li>
+          <li>Copy must avoid invented statistics and unverifiable superiority claims.</li>
+          <li>Body copy should stay around 60-75 characters per line on desktop.</li>
+          <li>Cards must not be nested inside other cards.</li>
+          <li>Primary actions should use text-primary background with text-inverse copy.</li>
+          <li>Blog posts must link to a relevant service, location or trust page.</li>
+          <li>Footer must expose all legal and compliance support pages.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section dark-panel panel">
+      <div class="section-intro">
+        <div>
+          <p class="eyebrow">Final system rule</p>
+          <h2>Trust before polish.</h2>
+        </div>
+        <p>The design system exists to make the site feel calm and professional. The content strategy exists to make families confident enough to act. If a design decision makes the page prettier but less clear, it should be removed.</p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

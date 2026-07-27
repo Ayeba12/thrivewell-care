@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Next.js build output
+.next/
+**/.next/
+out/
+build/
+
+# Local env files
+.env*.local
+*.env.local
+
+# Logs
+logs/
+*.log
+
+# Large zips / media binaries
+*.zip
+app/public/wp-content/uploads/
+
+# Local WordPress environment config/db
+app/sql/
+conf/
+
+# System / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

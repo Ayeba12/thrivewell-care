@@ -1,0 +1,792 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Thrivewell Care Website Planning Document</title>
+  <style>
+    :root {
+      --bg: #f3f5ee;
+      --surface: #f6f4f1;
+      --fg: #1c2623;
+      --muted: color-mix(in srgb, #1c2623 72%, #f3f5ee);
+      --faint: color-mix(in srgb, #1c2623 52%, #f3f5ee);
+      --border: #dedcd6;
+      --border-soft: color-mix(in srgb, #dedcd6 62%, #f3f5ee);
+      --accent: #1c2623;
+      --sand: #dedcd6;
+      --dark: #000000;
+      --silver: #eceae1;
+      --font-display: "BDO Grotesk", Arial, sans-serif;
+      --font-body: "BDO Grotesk", Arial, sans-serif;
+      --font-mono: "BDO Grotesk", Arial, sans-serif;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --shadow-ring: 0 0 0 1px var(--border);
+      --shadow-soft: rgba(0, 0, 0, 0.09) 0 4px 9px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      color: var(--fg);
+      background: var(--bg);
+      font-family: var(--font-body);
+      line-height: 1.6;
+    }
+
+    body {
+      margin: 0;
+      background:
+        linear-gradient(90deg, rgba(28,38,35,.08) 1px, transparent 1px) 0 0 / 120px 120px,
+        var(--bg);
+    }
+
+    a {
+      color: inherit;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 28px 24px 96px;
+    }
+
+    .masthead {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 12px 0 48px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .wordmark {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 400;
+      line-height: 1;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .header {
+      padding: 76px 0 36px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(280px, .55fr);
+      gap: 56px;
+      align-items: end;
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin: 0 0 20px;
+    }
+
+    h1, h2, h3 {
+      font-family: var(--font-display);
+      font-weight: 400;
+      color: var(--fg);
+      margin: 0;
+      text-wrap: pretty;
+    }
+
+    h1 {
+      font-size: clamp(52px, 7vw, 68px);
+      line-height: 1.08;
+      letter-spacing: -.02em;
+      max-width: 12.4ch;
+    }
+
+    .deck {
+      font-size: clamp(19px, 2vw, 24px);
+      line-height: 1.48;
+      color: var(--muted);
+      max-width: 31ch;
+      margin: 0;
+    }
+
+    .meta {
+      color: var(--faint);
+      font-size: 14px;
+      margin-top: 22px;
+    }
+
+    .hero {
+      min-height: 390px;
+      border-radius: var(--radius-lg);
+      background:
+        radial-gradient(circle at 18% 18%, rgba(28,38,35,.11), transparent 30%),
+        linear-gradient(135deg, #f6f4f1 0%, #dedcd6 100%);
+      box-shadow: var(--shadow-ring), var(--shadow-soft);
+      padding: 26px;
+      display: grid;
+      align-content: end;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border: 1px solid rgba(20,20,19,.11);
+      border-radius: 999px;
+    }
+
+    .hero::before {
+      width: 380px;
+      height: 380px;
+      right: -180px;
+      top: -90px;
+    }
+
+    .hero::after {
+      width: 260px;
+      height: 260px;
+      left: -110px;
+      bottom: -80px;
+    }
+
+    .hero-card {
+      position: relative;
+      background: rgba(246,244,241,.9);
+      border: 1px solid rgba(222,220,214,.96);
+      border-radius: 18px;
+      padding: 20px;
+      max-width: 520px;
+    }
+
+    .hero-card strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 29px;
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -.01em;
+      margin-bottom: 8px;
+    }
+
+    .caption {
+      color: var(--faint);
+      font-size: 13px;
+      margin: 10px 2px 0;
+    }
+
+    .content {
+      max-width: 720px;
+      margin: 88px auto 0;
+      font-size: 17px;
+      line-height: 1.68;
+    }
+
+    .content > p:first-of-type::first-letter {
+      float: left;
+      font-family: var(--font-display);
+      font-size: 78px;
+      line-height: .86;
+      padding: 9px 9px 0 0;
+      color: var(--fg);
+    }
+
+    .content h2 {
+      font-size: clamp(34px, 4vw, 52px);
+      line-height: 1.12;
+      letter-spacing: -.02em;
+      margin: 76px 0 18px;
+    }
+
+    .content h3 {
+      font-size: 25px;
+      line-height: 1.22;
+      letter-spacing: -.01em;
+      margin: 34px 0 12px;
+    }
+
+    .content p { margin: 0 0 20px; }
+
+    .content ul,
+    .content ol {
+      margin: 16px 0 28px;
+      padding-left: 24px;
+    }
+
+    .content li { margin: 8px 0; }
+
+    .pull {
+      margin: 72px -92px;
+      padding: 8px 0 8px 28px;
+      border-inline-start: 3px solid var(--accent);
+      font-family: var(--font-display);
+      font-size: clamp(31px, 4vw, 43px);
+      line-height: 1.18;
+      letter-spacing: -.02em;
+      color: var(--fg);
+    }
+
+    .inline-quote {
+      margin: 34px 0;
+      padding: 22px 26px;
+      background: var(--surface);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-md);
+      color: var(--muted);
+    }
+
+    .figure { margin: 42px 0; }
+
+    .figure-block {
+      min-height: 250px;
+      border-radius: var(--radius-lg);
+      background:
+        linear-gradient(90deg, rgba(20,20,19,.055) 1px, transparent 1px) 0 0 / 42px 42px,
+        linear-gradient(180deg, #f6f4f1, #dedcd6);
+      box-shadow: inset 0 0 0 1px var(--border);
+      padding: 26px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      align-content: end;
+    }
+
+    .mini-card {
+      min-height: 118px;
+      background: rgba(246,244,241,.72);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      display: grid;
+      align-content: end;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .wide-section {
+      max-width: 1060px;
+      margin: 94px auto 0;
+      padding: 48px;
+      background: var(--surface);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-ring);
+    }
+
+    .wide-section h2 {
+      font-size: clamp(36px, 5vw, 58px);
+      line-height: 1.1;
+      letter-spacing: -.025em;
+      margin-bottom: 28px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: #f6f4f1;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 22px;
+      min-height: 158px;
+    }
+
+    .card .kicker {
+      font-family: var(--font-mono);
+      color: var(--faint);
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .card strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 23px;
+      font-weight: 500;
+      line-height: 1.18;
+      letter-spacing: -.01em;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      background: #f6f4f1;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: 0 0 0 1px var(--border);
+      margin: 20px 0 34px;
+    }
+
+    .table th,
+    .table td {
+      padding: 15px 16px;
+      border-bottom: 1px solid var(--border-soft);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .table th {
+      font-weight: 400;
+      color: var(--fg);
+      background: #f3f5ee;
+    }
+
+    .table td { color: var(--muted); }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 18px 0 0;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--sand);
+      color: var(--fg);
+      font-size: 13px;
+    }
+
+    .dark {
+      max-width: none;
+      margin-top: 94px;
+      background: var(--fg);
+      color: var(--surface);
+      border-radius: var(--radius-lg);
+      padding: 52px;
+      display: grid;
+      grid-template-columns: minmax(0, .9fr) minmax(280px, 1fr);
+      gap: 42px;
+    }
+
+    .dark h2 {
+      color: var(--surface);
+      font-size: clamp(35px, 5vw, 56px);
+      line-height: 1.1;
+      letter-spacing: -.025em;
+    }
+
+    .dark p,
+    .dark li { color: var(--silver); }
+
+    .dark .table {
+      box-shadow: 0 0 0 1px var(--dark);
+      background: var(--dark);
+    }
+
+    .dark .table th,
+    .dark .table td {
+      border-color: rgba(250,249,245,.08);
+    }
+
+    .dark .table th {
+      background: rgba(250,249,245,.05);
+      color: var(--surface);
+    }
+
+    .dark .table td { color: var(--silver); }
+
+    .author {
+      max-width: 720px;
+      margin: 86px auto 0;
+      display: grid;
+      grid-template-columns: 64px 1fr;
+      gap: 18px;
+      padding: 26px 0 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--dark);
+      color: var(--surface);
+      display: grid;
+      place-items: center;
+      font-family: var(--font-display);
+      font-size: 23px;
+    }
+
+    .author strong {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 400;
+    }
+
+    .author p {
+      margin: 7px 0 0;
+      color: var(--muted);
+    }
+
+    .related {
+      max-width: 1060px;
+      margin: 80px auto 0;
+    }
+
+    .related h2 {
+      font-size: 38px;
+      line-height: 1.14;
+      letter-spacing: -.02em;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 900px) {
+      .header,
+      .dark { grid-template-columns: 1fr; }
+
+      .hero { min-height: 310px; }
+
+      .pull {
+        margin-left: 0;
+        margin-right: 0;
+      }
+
+      .grid { grid-template-columns: 1fr; }
+
+      .wide-section,
+      .dark { padding: 28px; }
+    }
+
+    @media (max-width: 620px) {
+      .page { padding: 20px 16px 72px; }
+
+      .masthead {
+        align-items: flex-start;
+        flex-direction: column;
+        padding-bottom: 30px;
+      }
+
+      .header {
+        padding-top: 50px;
+        gap: 32px;
+      }
+
+      h1 { font-size: 46px; }
+
+      .content {
+        margin-top: 54px;
+        font-size: 16px;
+      }
+
+      .figure-block { grid-template-columns: 1fr; }
+
+      .table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+
+      .author { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="masthead">
+      <div class="wordmark">Thrivewell Care</div>
+      <nav class="nav" aria-label="Document sections">
+        <a href="#sitemap">Sitemap</a>
+        <a href="#copy-system">Copy System</a>
+        <a href="#services">Services</a>
+        <a href="#locations">Locations</a>
+        <a href="#design-system">Design System</a>
+      </nav>
+    </header>
+
+    <section class="header">
+      <div>
+        <p class="eyebrow">Planning document</p>
+        <h1 data-od-id="headline">A conversion-led care website built around trust, locality and family reassurance.</h1>
+      </div>
+      <div>
+        <p class="deck">This document extracts the usable content from the existing Thrivewell Care site and turns it into a full website content system, SEO sitemap and original visual direction for adult children choosing care for a parent.</p>
+        <p class="meta">Prepared May 27, 2026 · Source reviewed: thrivewellcare.lovable.app · Visual system updated from the attached clean functional design kit, adapted for Thrivewell Care.</p>
+      </div>
+    </section>
+
+    <section class="hero" data-od-id="hero" aria-label="Planning system preview">
+      <div class="hero-card">
+        <strong>Core strategy: make the next step feel safe.</strong>
+        <span>Every major page should answer three anxieties: Is this care regulated? Will my parent be treated with dignity? Can I speak to someone today?</span>
+      </div>
+    </section>
+    <p class="caption">The recommended system now uses a restrained BDO Grotesk-led visual language, plain-English healthcare copy and local SEO architecture.</p>
+
+    <article class="content" data-od-id="body">
+      <p>Thrivewell Care already has the raw ingredients of a strong care-at-home brand: a clear mission, a nurse-led management structure, Care Inspectorate registration, PVG-checked and SSSC-registered carers, 24/7 on-call support and a geographic focus across West Lothian, Edinburgh and East Lothian. The current content also has a useful emotional thread: helping people live independently in the home they love while giving families peace of mind.</p>
+
+      <p>The website planning opportunity is not to add more decoration. It is to separate high-intent searches into dedicated pages, make each service and location page specific, and give families enough reassurance to contact the team without feeling rushed. Adult children comparing care providers are rarely browsing casually. They may be worried after a fall, a hospital discharge, early dementia symptoms, carer burnout or a parent no longer managing medication safely. The site should speak to those moments directly.</p>
+
+      <h2>Source inventory and content assets</h2>
+      <p>The existing site provides several content pillars that should be retained and developed. The strongest points are regulated care, nurse-led oversight, personal care planning, dignity, responsiveness and local coverage. The weaker point is architecture: the service offer is compressed into a small number of pages, which limits both SEO reach and conversion specificity.</p>
+
+      <ul>
+        <li><strong>Brand promise:</strong> help adults continue to live well, independently and with dignity, in their own home.</li>
+        <li><strong>Operating region:</strong> West Lothian, including Livingston, Bathgate, Linlithgow, Whitburn, Armadale and surrounding areas, plus Edinburgh and East Lothian.</li>
+        <li><strong>Trust proof:</strong> Care Inspectorate Scotland registered, nurse-led Registered Manager, PVG checks through Disclosure Scotland, SSSC registration and 24/7 on-call support.</li>
+        <li><strong>Services currently visible:</strong> personal care, medication support, companionship, live-in care, respite care and sleeping or waking night care.</li>
+        <li><strong>Additional requested pages:</strong> dementia care, post-hospital care, care assessment, funding guide, testimonials, Care Inspectorate page and legal policy pages.</li>
+      </ul>
+
+      <aside class="pull" data-od-id="pull-quote">The highest-converting page is not the prettiest page. It is the page that makes a worried family feel, within seconds, that calling is the sensible next step.</aside>
+
+      <h2 id="sitemap">Recommended SEO sitemap</h2>
+      <p>The architecture should move from a thin brochure site to a local service platform. The top level should stay simple, but the second tier should be intentionally deep: individual service pages for care-intent searches, location pages for hyper-local intent and trust pages for families who need confidence before making contact. The recommended build contains 31 indexed or support pages before blog expansion.</p>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Tier</th>
+            <th>URL</th>
+            <th>Purpose</th>
+            <th>Primary CTA</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Core</td><td>/</td><td>Position Thrivewell as a regulated, nurse-led care-at-home provider.</td><td>Arrange a free care assessment</td></tr>
+          <tr><td>Core</td><td>/about</td><td>Tell the founding story, introduce directors and Registered Manager.</td><td>Meet the team</td></tr>
+          <tr><td>Core</td><td>/services</td><td>Service hub linking to all dedicated service pages.</td><td>Find the right care</td></tr>
+          <tr><td>Core</td><td>/why-choose-us</td><td>Trust proof, regulation, staff checks, nurse-led management and family reassurance.</td><td>Talk to our team</td></tr>
+          <tr><td>Core</td><td>/contact</td><td>Lead form, phone, email and urgent-care route.</td><td>Call or request a callback</td></tr>
+          <tr><td>Core</td><td>/cost-estimator</td><td>Interactive needs triage that helps families understand likely care intensity.</td><td>Start the care checker</td></tr>
+          <tr><td>Core</td><td>/careers</td><td>Recruit care workers and senior care workers.</td><td>Apply to join Thrivewell</td></tr>
+          <tr><td>Core</td><td>/blog</td><td>Advice library for SDS, hospital discharge, dementia and family care planning.</td><td>Read family guides</td></tr>
+        </tbody>
+      </table>
+
+      <h3 id="services">Service pages</h3>
+      <p>Each service page should be built as a separate landing page because each answers a different search intent. "Live-in care West Lothian", "respite care Edinburgh" and "medication support Bathgate" are not the same decision. They deserve different headlines, proof points, FAQs and calls to action.</p>
+
+      <ol>
+        <li><strong>/services/personal-care</strong> - bathing, dressing, grooming, toileting and continence support with dignity.</li>
+        <li><strong>/services/medication-support</strong> - reminders, prompting and administration documented through MAR charts.</li>
+        <li><strong>/services/companionship-care</strong> - conversation, outings, appointments, shopping and loneliness reduction.</li>
+        <li><strong>/services/live-in-care</strong> - a round-the-clock alternative to residential care for people who want to stay home.</li>
+        <li><strong>/services/respite-care</strong> - planned cover for family carers from a few hours to several weeks.</li>
+        <li><strong>/services/night-care</strong> - sleeping nights and waking nights for overnight reassurance or active support.</li>
+        <li><strong>/services/dementia-care</strong> - familiar routines, continuity, safety prompts and support for memory loss.</li>
+        <li><strong>/services/post-hospital-care</strong> - short-term settling-in support after discharge, falls or illness.</li>
+      </ol>
+
+      <figure class="figure">
+        <div class="figure-block" role="img" aria-label="Three landing page templates for services, locations and trust pages">
+          <div class="mini-card">Service page: symptom or situation first, then care package.</div>
+          <div class="mini-card">Location page: local proof, nearby coverage, fast assessment.</div>
+          <div class="mini-card">Trust page: regulation, checks, standards and family confidence.</div>
+        </div>
+        <figcaption class="caption">Production should use three repeatable page systems rather than one generic template for every page.</figcaption>
+      </figure>
+
+      <h3 id="locations">Location pages</h3>
+      <p>The location pages should not be duplicated with town names swapped in. Each page needs a locally specific intro, nearby areas served, transport or community references where accurate, localised FAQs and testimonials where available. This is how the pages avoid thin-content risk while still targeting commercial searches.</p>
+
+      <ul>
+        <li><strong>/locations/west-lothian</strong> - county-level hub for care at home in West Lothian.</li>
+        <li><strong>/locations/livingston</strong> - high-intent page for home care in Livingston and surrounding neighbourhoods.</li>
+        <li><strong>/locations/bathgate</strong> - personal care, respite and medication support in Bathgate.</li>
+        <li><strong>/locations/linlithgow</strong> - discreet care-at-home support with an emphasis on independence.</li>
+        <li><strong>/locations/edinburgh</strong> - private home care and post-hospital support in Edinburgh.</li>
+        <li><strong>/locations/east-lothian</strong> - companionship, live-in care and respite care across East Lothian.</li>
+      </ul>
+
+      <blockquote class="inline-quote">Recommended location-page rule: at least 45 percent of the visible copy should be unique to that place. Include local coverage notes, common family situations and a location-specific CTA.</blockquote>
+
+      <h2 id="copy-system">Copy system for the new site</h2>
+      <p>The voice should be warm, direct and practical. Families should feel respected, not sold to. The site can be conversion-focused without becoming aggressive by using plain next steps: call, request a free care assessment, check care options or ask about funding. Avoid exaggerated claims and avoid invented outcomes.</p>
+
+      <h3>Core message hierarchy</h3>
+      <ol>
+        <li><strong>Safety:</strong> regulated, nurse-led, trained, checked and supported 24/7.</li>
+        <li><strong>Dignity:</strong> care that protects routine, privacy, independence and choice.</li>
+        <li><strong>Locality:</strong> real care teams serving West Lothian, Edinburgh and East Lothian.</li>
+        <li><strong>Clarity:</strong> assessment, plan, matched carer, review and adjustment.</li>
+        <li><strong>Relief:</strong> families know who to call and what happens next.</li>
+      </ol>
+
+      <h3>Homepage draft structure</h3>
+      <p><strong>Hero headline:</strong> Nurse-led home care that helps your parent stay safe, independent and well at home.</p>
+      <p><strong>Hero deck:</strong> Thrivewell Care provides regulated care at home across West Lothian, Edinburgh and East Lothian, with personalised support for daily routines, medication, companionship, nights, respite and more complex needs.</p>
+      <p><strong>Primary CTA:</strong> Arrange a free care assessment. <strong>Secondary CTA:</strong> Call for advice today.</p>
+
+      <h3>Reusable service-page copy frame</h3>
+      <ol>
+        <li>Situation-led opening: name the family concern in human language.</li>
+        <li>What the service includes: practical tasks, boundaries and examples.</li>
+        <li>Who it helps: adult children, older people, family carers or discharge teams.</li>
+        <li>How Thrivewell delivers it: care plan, matched carer, documentation, review.</li>
+        <li>Trust proof: Care Inspectorate, nurse-led oversight, PVG, SSSC, 24/7 support.</li>
+        <li>Local CTA: "Book a free care assessment in [location]".</li>
+      </ol>
+    </article>
+
+    <section class="wide-section">
+      <h2>Page brief matrix</h2>
+      <div class="grid">
+        <div class="card">
+          <div class="kicker">Trust</div>
+          <strong>/care-assessment</strong>
+          <p>Explain the free assessment, what happens during the visit, who should attend, what families should prepare and how quickly care can begin.</p>
+        </div>
+        <div class="card">
+          <div class="kicker">Money</div>
+          <strong>/funding-guide</strong>
+          <p>Plain-English guide to self-funding, Self-Directed Support, Direct Payments, Attendance Allowance and local authority assessment routes.</p>
+        </div>
+        <div class="card">
+          <div class="kicker">Proof</div>
+          <strong>/care-inspectorate</strong>
+          <p>Dedicated reassurance page explaining registration, inspections, standards, complaints and what regulation means for families.</p>
+        </div>
+        <div class="card">
+          <div class="kicker">Conversion</div>
+          <strong>/testimonials</strong>
+          <p>Collect family stories by service and location. Existing source testimonials mention peace of mind, listening, punctuality and dignity.</p>
+        </div>
+        <div class="card">
+          <div class="kicker">Support</div>
+          <strong>/faqs</strong>
+          <p>Answer common objections: funding, urgent start, carer checks, changing packages, coverage areas, dementia care and overnight support.</p>
+        </div>
+        <div class="card">
+          <div class="kicker">Footer</div>
+          <strong>Legal pages</strong>
+          <p>/privacy-policy, /cookie-policy, /accessibility-statement, /complaints-procedure and /safeguarding-policy should be visible from the footer.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="dark">
+      <div>
+        <h2 id="design-system">Updated design system recommendation</h2>
+        <p>The visual system should use the attached clean functional kit as its foundation: BDO Grotesk typography, deep green-black text, raised warm surfaces, generous spacing jumps and rounded containers. For Thrivewell, that creates a calm, modern care brand that feels practical, accessible and easy for families to act on.</p>
+      </div>
+      <div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Foundation</th>
+              <th>Rule</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Color</td><td>Use #f3f5ee for the page surface, #f6f4f1 for raised cards, #1c2623 for text and primary actions, #dedcd6 for structure and #000000 for high-contrast dark sections.</td></tr>
+            <tr><td>Typography</td><td>Use BDO Grotesk across display, body and UI. Keep the scale disciplined: 12, 14, 16, 28, 40, 56 and 68px, with clear hierarchy from spacing and layout rather than heavy weights.</td></tr>
+            <tr><td>Components</td><td>Buttons, links, cards, inputs and navigation must include default, hover, focus-visible, active, disabled, loading and error states before build handoff.</td></tr>
+            <tr><td>Imagery</td><td>Use real local care photography when available; otherwise use abstract warm surface blocks and practical content diagrams until photography is commissioned.</td></tr>
+            <tr><td>Accessibility</td><td>Target WCAG 2.2 AA, 44px touch targets, visible focus indicators, descriptive labels and no color-only communication.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="wide-section">
+      <h2>Design-system handoff rules</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Area</th>
+            <th>Implementation guidance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Tokens</td><td>Use semantic names in build files: text-primary #1c2623, text-secondary #eceae1, text-tertiary #ffffff, text-inverse #f6f4f1, surface-base #000000, surface-raised #f3f5ee and surface-strong #dedcd6.</td></tr>
+          <tr><td>Spacing</td><td>Use the extracted scale: 1, 4, 5, 6, 8, 9, 12, 16, 20, 24, 32, 60, 120, 160 and 200px. Reserve 120px+ for major page rhythm, not card internals.</td></tr>
+          <tr><td>Radii</td><td>Use 8px for small controls, 12px for compact inputs, 16px for buttons and standard cards, 20px for larger panels and 24px for major sections.</td></tr>
+          <tr><td>Buttons</td><td>Primary actions should use #1c2623 backgrounds with #f6f4f1 text. Secondary actions should use #dedcd6 with #1c2623 text. Every button must retain a 44px minimum target.</td></tr>
+          <tr><td>Inputs</td><td>Labels must stay visible. Focus-visible must be obvious. Error text must be descriptive and paired with programmatic state, not just a color change.</td></tr>
+          <tr><td>Cards</td><td>Cards should carry one job: service summary, trust proof, location entry or related content. Keep padding at 20-32px and avoid nested cards.</td></tr>
+          <tr><td>Content tone</td><td>Use concise, confident, implementation-ready language. For family-facing pages, translate that into calm verbs: call, arrange, ask, check, plan and review.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="wide-section">
+      <h2>SEO and content production priorities</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Priority</th>
+            <th>Workstream</th>
+            <th>Why it matters</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>Build 8 individual service pages</td><td>Captures specific intent and allows each service to rank independently.</td></tr>
+          <tr><td>2</td><td>Build 6 unique location pages</td><td>Targets high-conversion local searches such as home care Livingston and care at home Bathgate.</td></tr>
+          <tr><td>3</td><td>Create assessment and funding pages</td><td>Removes two major decision barriers: process uncertainty and cost anxiety.</td></tr>
+          <tr><td>4</td><td>Strengthen trust proof</td><td>Care Inspectorate, nurse-led management, PVG and SSSC should appear across the site, not only on one page.</td></tr>
+          <tr><td>5</td><td>Create blog clusters</td><td>Support long-tail searches around SDS, hospital discharge, dementia signs, respite planning and medication safety.</td></tr>
+        </tbody>
+      </table>
+      <div class="tag-list" aria-label="Recommended content clusters">
+        <span class="tag">Self-Directed Support</span>
+        <span class="tag">Hospital discharge</span>
+        <span class="tag">Dementia at home</span>
+        <span class="tag">Family carer respite</span>
+        <span class="tag">Medication safety</span>
+        <span class="tag">Night care</span>
+        <span class="tag">Choosing a provider</span>
+      </div>
+    </section>
+
+    <section class="author">
+      <div class="avatar" aria-hidden="true">TW</div>
+      <div>
+        <strong>Planning author</strong>
+        <p>Prepared as a senior UI/UX and content strategy handoff for a healthcare services website serving older adults and their families. The recommendations use extracted source content, but the design direction is original.</p>
+      </div>
+    </section>
+
+    <section class="related" data-od-id="related-grid">
+      <h2>Next production briefs</h2>
+      <div class="grid">
+        <div class="card">
+          <div class="kicker">Brief 01</div>
+          <strong>Homepage wireframe and copy</strong>
+          <p>Produce the first high-fidelity homepage prototype using this architecture and messaging system.</p>
+        </div>
+        <div class="card">
+          <div class="kicker">Brief 02</div>
+          <strong>Service page template</strong>
+          <p>Create the repeatable landing-page structure for all eight care services with SEO fields.</p>
+        </div>
+        <div class="card">
+          <div class="kicker">Brief 03</div>
+          <strong>Location page template</strong>
+          <p>Create a unique local SEO template for West Lothian, Livingston, Bathgate and surrounding pages.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
